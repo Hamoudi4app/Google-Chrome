@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تحميل Google Chrome | </title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg,#4285F4,#34A853,#FBBC05,#EA4335);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      text-align: center;
+      padding: 24px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 16px;
+    }
+    .logo img { width: 120px; margin-bottom: 20px; }
+    h1 { margin-bottom: 12px; }
+    p { margin-bottom: 20px; }
+    .btn {
+      position: relative;
+      display: inline-block;
+      padding: 14px 24px;
+      margin: 10px;
+      background: #fff;
+      color: #111;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .btn span {
+      position: relative;
+      z-index: 2;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 0%;
+      height: 100%;
+      background: #22c55e;
+      z-index: 1;
+      transition: width 3s linear;
+    }
+    .btn.animate::before {
+      width: 100%;
+    }
+    .btn.android { border: 2px solid #34A853; }
+    .btn.pc { border: 2px solid #4285F4; }
+    footer { margin-top: 30px; font-size: 0.9rem; }
+    footer a { color: #fff; font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://www.google.com/chrome/static/images/chrome-logo.svg" alt="Chrome Logo">
+    </div>
+    <h1>تنزيل Google Chrome مجاناً</h1>
+    <p>أسرع متصفح من جوجل، آمن ويدعم أحدث التقنيات على أندرويد والكمبيوتر.</p>
+
+    <a class="btn android" id="androidBtn"><span>📱 تحميل للأندرويد</span></a>
+    <a class="btn pc" id="pcBtn"><span>💻 تحميل للكمبيوتر</span></a>
+
+    <footer>
+     جيع الحقوق محفوظة © 2025 <a href="https://my-profile-4w23.vercel.app/" target="_blank">محمد فيصل</a>
+    </footer>
+  </div>
+
+  <script>
+    function animateDownload(btn, url) {
+      btn.classList.add("animate");
+      setTimeout(() => {
+        // يبدأ التحميل
+        window.location.href = url;
+
+        // نلغي الترانزيشن ونرجع العرض للصفر فجأة
+        const beforeEl = btn.querySelector("::before"); // مش ممكن نتحكم فيه مباشرة
+        btn.classList.remove("animate");
+
+        // نعمل إعادة ضبط للـ ::before عبر CSS مباشرة
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(".btn::before { transition: none !important; width:0% !important; }", styleSheet.cssRules.length);
+
+        // بعد لحظة نرجع الترانزيشن عشان الأنيميشن يشتغل تاني في الضغط القادم
+        setTimeout(() => {
+          for (let i = styleSheet.cssRules.length - 1; i >= 0; i--) {
+            if (styleSheet.cssRules[i].cssText.includes("transition: none")) {
+              styleSheet.deleteRule(i);
+            }
+          }
+        }, 50);
+      }, 3000);
+    }
+
+    const androidBtn = document.getElementById("androidBtn");
+    const pcBtn = document.getElementById("pcBtn");
+
+    androidBtn.addEventListener("click", function(e){
+      e.preventDefault();
+      animateDownload(androidBtn, "https://raw.githubusercontent.com/Hamoudi4app/Google-Chrome/main/chrome.apk");
+    });
+
+    pcBtn.addEventListener("click", function(e){
+      e.preventDefault();
+      animateDownload(pcBtn, "https://raw.githubusercontent.com/Hamoudi4app/Google-Chrome/main/ChromeSetup.exe");
+    });
+  </script>
+</body>
+</html>
