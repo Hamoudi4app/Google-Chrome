@@ -4,6 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>تحميل Google Chrome | </title>
+
+  <!-- كود AdSense للإعلانات التلقائية -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7744635661972873"
+          crossorigin="anonymous"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -81,18 +86,10 @@
     function animateDownload(btn, url) {
       btn.classList.add("animate");
       setTimeout(() => {
-        // يبدأ التحميل
         window.location.href = url;
-
-        // نلغي الترانزيشن ونرجع العرض للصفر فجأة
-        const beforeEl = btn.querySelector("::before"); // مش ممكن نتحكم فيه مباشرة
         btn.classList.remove("animate");
-
-        // نعمل إعادة ضبط للـ ::before عبر CSS مباشرة
         const styleSheet = document.styleSheets[0];
         styleSheet.insertRule(".btn::before { transition: none !important; width:0% !important; }", styleSheet.cssRules.length);
-
-        // بعد لحظة نرجع الترانزيشن عشان الأنيميشن يشتغل تاني في الضغط القادم
         setTimeout(() => {
           for (let i = styleSheet.cssRules.length - 1; i >= 0; i--) {
             if (styleSheet.cssRules[i].cssText.includes("transition: none")) {
